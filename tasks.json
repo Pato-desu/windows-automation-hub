@@ -1,0 +1,41 @@
+{
+  "tasks": [
+    {
+      "id": "system_info_snapshot",
+      "name": "Periodic System Performance Log",
+      "enabled": true,
+      "script": "tasks/example_system_info.ps1",
+      "type": "powershell",
+      "condition": {
+        "type": "interval",
+        "seconds": 3600,
+        "cooldown_seconds": 300
+      }
+    },
+    {
+      "id": "low_disk_cleanup",
+      "name": "Low Disk Space Auto-Cleanup",
+      "enabled": true,
+      "script": "tasks/example_disk_cleanup.py",
+      "type": "python",
+      "condition": {
+        "type": "disk_space_below",
+        "drive": "C:",
+        "min_free_percent": 15,
+        "cooldown_seconds": 3600
+      }
+    },
+    {
+      "id": "organize_downloads",
+      "name": "Auto Organize Downloads Folder",
+      "enabled": false,
+      "script": "tasks/example_folder_organizer.py",
+      "type": "python",
+      "condition": {
+        "type": "folder_not_empty",
+        "path": "%USERPROFILE%\\Downloads",
+        "cooldown_seconds": 300
+      }
+    }
+  ]
+}
