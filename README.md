@@ -4,6 +4,22 @@ A modular, extensible framework for running scripts on your Windows PC based on 
 
 ---
 
+## 🖥️ Graphical Control Panels & Tools
+
+The hub includes dedicated GUI dialogs for each automation that can be pinned directly to your Windows Start menu or Taskbar:
+
+| Tool | Script | Description |
+| :--- | :--- | :--- |
+| **Automation Hub Dashboard** | `automation_hub_ui.ps1` | Central dashboard launching all tools and managing shortcuts. |
+| **Power Timer** | `power_timer.ps1` | Set PC to sleep or shut down in X minutes with live countdown & cancel. |
+| **Dumbbell Reminder** | `dumbell_ui.ps1` | Start/stop background monitor, toggle Windows Startup, and test alerts. |
+| **OBS Wake Manager** | `obs_wake_ui.ps1` | Register/fix Task Scheduler wake trigger, test OBS restoration now. |
+
+### Pinning Tools to Windows Start
+Run `create_all_shortcuts.ps1` (or right-click -> *Run with PowerShell*). It creates shortcuts with native Windows icons in this directory, on your Desktop, and in your Start Menu. Right-click any shortcut and select **Pin to Start**.
+
+---
+
 ## 📁 Repository Structure
 
 ```
