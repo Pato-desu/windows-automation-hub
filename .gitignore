@@ -1,5 +1,7 @@
 # State file & Logs
 .task_state.json
+.*_pid
+*.pid
 logs/
 *.log
 
