@@ -14,6 +14,10 @@ The hub includes dedicated GUI dialogs for each automation that can be pinned di
 | **Power Timer** | `power_timer.ps1` | Set PC to sleep or shut down in X minutes with live countdown & cancel. |
 | **Dumbbell Reminder** | `dumbell_ui.ps1` | Start/stop background monitor, toggle Windows Startup, and test alerts. |
 | **OBS Wake Manager** | `obs_wake_ui.ps1` | Register/fix Task Scheduler wake trigger, test OBS restoration now. |
+| **Google Drive Backup** | `gdrive_backup_ui.ps1` | Start/stop/dry-run an rclone Drive backup, view status, optional nightly schedule. |
+
+### Google Drive Backup
+Runs `rclone sync gdrive: <Dest> --backup-dir <ArchiveRoot>\<timestamp>`: the backup mirrors Drive, and anything deleted or replaced is moved to a dated archive folder (pruned after `KeepDays`). `rclone.exe` is auto-detected from the `rclone-*` folder in this directory (gitignored); your Drive login stays in `%APPDATA%cloneclone.conf`. Defaults (destination `Z:\Google Drive Backup`, archive `Z:\Google Drive Archive`, 90 days) are in `gdrive_backup_common.ps1` and can be overridden with an untracked `gdrive_backup_config.json`, e.g. `{ "Dest": "D:\Backup" }`. Malware-flagged files that Google refuses to download are reported as a warning, not a failure.
 
 ### Pinning Tools to Windows Start
 Run `create_all_shortcuts.ps1` (or right-click -> *Run with PowerShell*). It creates shortcuts with native Windows icons in this directory, on your Desktop, and in your Start Menu. Right-click any shortcut and select **Pin to Start**.

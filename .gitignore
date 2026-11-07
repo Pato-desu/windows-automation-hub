@@ -2,6 +2,9 @@
 .task_state.json
 .*_pid
 *.pid
+
+# Machine-specific backup settings
+gdrive_backup_config.json
 logs/
 *.log
 
@@ -19,3 +22,6 @@ ehthumbs.db
 Desktop.ini
 $RECYCLE.BIN/
 *.lnk
+
+# rclone binary (downloaded separately)
+rclone-*/

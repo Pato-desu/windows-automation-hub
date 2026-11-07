@@ -15,7 +15,7 @@ $ScriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
 # --- Main Form ---
 $form = New-Object System.Windows.Forms.Form
 $form.Text = "Windows Automation Hub"
-$form.Size = New-Object System.Drawing.Size(460, 520)
+$form.Size = New-Object System.Drawing.Size(460, 630)
 $form.StartPosition = "CenterScreen"
 $form.FormBorderStyle = "FixedDialog"
 $form.MaximizeBox = $false
@@ -134,6 +134,33 @@ $btnOpen3.Size = New-Object System.Drawing.Size(105, 38)
 $btnOpen3.Add_Click({ Launch-ChildUI "obs_wake_ui.ps1" })
 $card3.Controls.Add($btnOpen3)
 
+# --- Card 4: Google Drive Backup ---
+$card4 = New-Object System.Windows.Forms.GroupBox
+$card4.Text = "Google Drive Backup"
+$card4.Font = $fontSection
+$card4.Location = New-Object System.Drawing.Point(20, 385)
+$card4.Size = New-Object System.Drawing.Size(400, 95)
+$form.Controls.Add($card4)
+
+$lblC4 = New-Object System.Windows.Forms.Label
+$lblC4.Text = "Backs up Google Drive with rclone. Deleted or changed files are archived by date."
+$lblC4.Font = $fontSmall
+$lblC4.ForeColor = [System.Drawing.Color]::FromArgb(71, 85, 105)
+$lblC4.Location = New-Object System.Drawing.Point(15, 22)
+$lblC4.Size = New-Object System.Drawing.Size(260, 60)
+$card4.Controls.Add($lblC4)
+
+$btnOpen4 = New-Object System.Windows.Forms.Button
+$btnOpen4.Text = "Manage"
+$btnOpen4.Font = $fontBold
+$btnOpen4.BackColor = [System.Drawing.Color]::FromArgb(37, 99, 235)
+$btnOpen4.ForeColor = [System.Drawing.Color]::White
+$btnOpen4.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
+$btnOpen4.Location = New-Object System.Drawing.Point(280, 30)
+$btnOpen4.Size = New-Object System.Drawing.Size(105, 38)
+$btnOpen4.Add_Click({ Launch-ChildUI "gdrive_backup_ui.ps1" })
+$card4.Controls.Add($btnOpen4)
+
 # --- Bottom Bar: Shortcut Creator ---
 $btnShortcuts = New-Object System.Windows.Forms.Button
 $btnShortcuts.Text = "Install / Update All Shortcuts (Desktop & Start Menu)"
@@ -141,7 +168,7 @@ $btnShortcuts.Font = $fontRegular
 $btnShortcuts.BackColor = [System.Drawing.Color]::FromArgb(241, 245, 249)
 $btnShortcuts.ForeColor = [System.Drawing.Color]::FromArgb(30, 41, 59)
 $btnShortcuts.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
-$btnShortcuts.Location = New-Object System.Drawing.Point(20, 395)
+$btnShortcuts.Location = New-Object System.Drawing.Point(20, 495)
 $btnShortcuts.Size = New-Object System.Drawing.Size(400, 38)
 $btnShortcuts.Add_Click({
     $p = Join-Path $ScriptDir "create_all_shortcuts.ps1"

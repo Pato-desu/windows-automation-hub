@@ -37,6 +37,12 @@ $Tools = @(
         Desc = "Configure and test OBS Studio wake restoration"
     },
     @{
+        Name = "Google Drive Backup"
+        Script = "gdrive_backup_ui.ps1"
+        Icon = "$env:SystemRoot\System32\shell32.dll,238" # Sync / backup
+        Desc = "Back up Google Drive with rclone"
+    },
+    @{
         Name = "Automation Hub Dashboard"
         Script = "automation_hub_ui.ps1"
         Icon = "$env:SystemRoot\System32\shell32.dll,41" # Gear / Hub
