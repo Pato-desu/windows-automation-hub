@@ -13,6 +13,7 @@ Add-Type -AssemblyName System.Drawing
 $ScriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
 . (Join-Path $ScriptDir "gdrive_backup_common.ps1")
 $RunnerScript = Join-Path $ScriptDir "gdrive_backup.ps1"
+$Launcher = Join-Path $ScriptDir "run_hidden.vbs"
 $cfg = Get-BackupConfig
 
 $fontTitle   = New-Object System.Drawing.Font("Segoe UI", 13, [System.Drawing.FontStyle]::Bold)
@@ -85,9 +86,9 @@ $form.Controls.Add((New-Label "Archive folders older than $($cfg.KeepDays) days 
 
 function Start-Runner([bool]$dry) {
     if (Get-RunnerPid) { return }
-    $argList = "-WindowStyle Hidden -ExecutionPolicy Bypass -File `"$RunnerScript`""
+    $argList = "`"$Launcher`" `"$RunnerScript`""
     if ($dry) { $argList += " -DryRun" }
-    Start-Process powershell.exe -ArgumentList $argList -WorkingDirectory $ScriptDir -WindowStyle Hidden
+    Start-Process wscript.exe -ArgumentList $argList -WorkingDirectory $ScriptDir
     Start-Sleep -Milliseconds 800
     Refresh-Status
 }
@@ -164,7 +165,7 @@ $btnSched.Add_Click({
         if (Get-ScheduledTask -TaskName $TaskName -ErrorAction SilentlyContinue) {
             Unregister-ScheduledTask -TaskName $TaskName -Confirm:$false
         } else {
-            $action = New-ScheduledTaskAction -Execute "powershell.exe" -Argument "-WindowStyle Hidden -ExecutionPolicy Bypass -File `"$RunnerScript`"" -WorkingDirectory $ScriptDir
+            $action = New-ScheduledTaskAction -Execute "wscript.exe" -Argument "`"$Launcher`" `"$RunnerScript`"" -WorkingDirectory $ScriptDir
             $trigger = New-ScheduledTaskTrigger -Daily -At "02:00"
             $settings = New-ScheduledTaskSettingsSet -StartWhenAvailable -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries -MultipleInstances IgnoreNew -ExecutionTimeLimit (New-TimeSpan -Hours 12)
             $principal = New-ScheduledTaskPrincipal -UserId "$env:USERDOMAIN\$env:USERNAME" -LogonType Interactive -RunLevel Limited

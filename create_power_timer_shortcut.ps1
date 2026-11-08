@@ -42,8 +42,8 @@ Write-Host "==========================================================" -Foregro
 foreach ($Path in $ShortcutLocations) {
     try {
         $Shortcut = $WshShell.CreateShortcut($Path)
-        $Shortcut.TargetPath = "powershell.exe"
-        $Shortcut.Arguments = "-WindowStyle Hidden -ExecutionPolicy Bypass -File `"$PowerTimerScript`""
+        $Shortcut.TargetPath = "wscript.exe"
+        $Shortcut.Arguments = "`"$(Join-Path $ScriptDir 'run_hidden.vbs')`" `"$PowerTimerScript`""
         $Shortcut.WorkingDirectory = $ScriptDir
         $Shortcut.IconLocation = "$env:SystemRoot\System32\shell32.dll,27" # Native red Power button icon
         $Shortcut.Description = "Schedule PC Sleep or Shut Down in minutes"

@@ -49,7 +49,7 @@ $form.Controls.Add($lblSub)
 function Launch-ChildUI([string]$scriptName) {
     $path = Join-Path $ScriptDir $scriptName
     if (Test-Path $path) {
-        Start-Process powershell.exe -ArgumentList "-WindowStyle Hidden -ExecutionPolicy Bypass -File `"$path`"" -WorkingDirectory $ScriptDir
+        Start-Process wscript.exe -ArgumentList "`"$(Join-Path $ScriptDir 'run_hidden.vbs')`" `"$path`"" -WorkingDirectory $ScriptDir
     }
 }
 

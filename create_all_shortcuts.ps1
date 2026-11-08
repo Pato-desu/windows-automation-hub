@@ -10,6 +10,7 @@
 
 $ScriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
 $WshShell = New-Object -ComObject WScript.Shell
+$Launcher = Join-Path $ScriptDir "run_hidden.vbs"   # starts PowerShell with no console window
 
 $DesktopPath = [Environment]::GetFolderPath([System.Environment+SpecialFolder]::Desktop)
 if (-not $DesktopPath -and $env:USERPROFILE) {
@@ -74,8 +75,8 @@ foreach ($tool in $Tools) {
     foreach ($dest in $destinations) {
         try {
             $shortcut = $WshShell.CreateShortcut($dest)
-            $shortcut.TargetPath = "powershell.exe"
-            $shortcut.Arguments = "-WindowStyle Hidden -ExecutionPolicy Bypass -File `"$targetScript`""
+            $shortcut.TargetPath = "wscript.exe"
+            $shortcut.Arguments = "`"$Launcher`" `"$targetScript`""
             $shortcut.WorkingDirectory = $ScriptDir
             $shortcut.IconLocation = $tool.Icon
             $shortcut.Description = $tool.Desc
